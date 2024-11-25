@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дискретка калькулятор</title>
+    <script>
+        function adjustedMod(value, mod) {
+            const result = value % mod;
+            return result === 0 ? mod : result;
+        }
+
+        function calculateResults() {
+            const selectedRange = document.getElementById('range').value;
+            const k = parseInt(document.getElementById('kValue').value) || 0;
+            let result = '';
+
+            switch (selectedRange) {
+                case "60-65":
+                    result += `Nivel 1: ${adjustedMod(k, 8)}, ${adjustedMod(k, 7)}, ${adjustedMod(k, 3)}, ${adjustedMod(k, 10)}, ${adjustedMod(k, 7)}`;
+                    break;
+
+                case "66-70":
+                    result += `Nivel 1: ${adjustedMod(k, 35)}, ${adjustedMod(k + 12, 35)}, ${adjustedMod(k + 24, 35)}<br>`;
+                    result += `Nivel 2: ${adjustedMod(k, 14)}, ${adjustedMod(k + 7, 14)}`;
+                    break;
+
+                case "71-80":
+                case "91-100":
+                    result += `Nivel 1: ${adjustedMod(k, 35)}, ${adjustedMod(k + 18, 35)}<br>`;
+                    result += `Nivel 2: ${adjustedMod(k, 14)}, ${adjustedMod(k + 7, 14)}<br>`;
+                    result += `Nivel 3: ${adjustedMod(k, 11)}<br>`;
+                    result += `Nivel 4: ${adjustedMod(k, 6)}`;
+                    break;
+
+                case "81-90":
+                    result += `Nivel 1: ${adjustedMod(k, 35)}, ${adjustedMod(k + 18, 35)}<br>`;
+                    result += `Nivel 2: ${adjustedMod(k, 14)}, ${adjustedMod(k + 7, 14)}<br>`;
+                    result += `Nivel 3: ${adjustedMod(k, 11)}, ${adjustedMod(k + 6, 11)}<br>`;
+                    result += `Nivel 4: ${adjustedMod(k, 6)}`;
+                    break;
+
+                default:
+                    result = 'Invalid range selected.';
+            }
+
+            // Display the results
+            document.getElementById('result').innerHTML = result;
+        }
+    </script>
+</head>
+<body>
+    <h1></h1>
+    <form onsubmit="return false;">
+
+        <label for="range">На який бал претендуєте</label>
+        <select id="range">
+            <option value="60-65">60-65</option>
+            <option value="66-70">66-70</option>
+            <option value="71-80">71-80</option>
+            <option value="81-90">81-90</option>
+            <option value="91-100">91-100</option>
+        </select>
+        <br><br>
+
+        <label for="kValue">Номер варіанту:</label>
+        <input type="text" id="kValue" placeholder="Enter a number">
+        <br><br>
+
+        <button type="button" onclick="calculateResults()">Calculate</button>
+    </form>
+    <h2>Номери завдань:</h2>
+    <p id="result"></p>
+</body>
+</html>
